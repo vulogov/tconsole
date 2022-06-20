@@ -4,7 +4,7 @@ import "time"
 import "tconsole"
 
 func main() {
-  c, _ := tconsole.New()
+  c, _ := tconsole.New(nil)
   c.Println("Hello!")
   c.Message("Doing #1")
   time.Sleep(time.Second)

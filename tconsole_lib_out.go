@@ -18,10 +18,19 @@ func (c *TConsole) Println(msg ...interface{}) {
   if c.offset == 0 {
     DefaultSection.WithLevel(0).Println(msg...)
   } else {
-    fmsg := make([]interface{}, 0)
-    fmsg = append(fmsg, "└")
-    fmsg = append(fmsg, msg...)
-    DefaultSection.WithLevel(c.offset-1).Println(fmsg...)
+    if ! c.hadAngle {
+      fmsg := make([]interface{}, 0)
+      fmsg = append(fmsg, "└")
+      fmsg = append(fmsg, msg...)
+      DefaultSection.WithLevel(c.offset-1).Println(fmsg...)
+      c.hadAngle = true
+    } else {
+      if c.offset > 1 {
+        DefaultSection.WithLevel(c.offset+1).Println(msg...)
+      } else {
+        DefaultSection.WithLevel(c.offset).Println(msg...)
+      }
+    }
   }
 }
 

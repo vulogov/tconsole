@@ -6,7 +6,7 @@ import (
 )
 
 func Test_tconsole1(t *testing.T) {
-	c, err := New()
+	c, err := New(nil)
 	assert.Equal(t, err, nil)
 	assert.NotEqual(t, c, nil)
 }

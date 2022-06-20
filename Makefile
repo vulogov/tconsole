@@ -1,5 +1,6 @@
 all: compile
 pre:
+	go get github.com/lrita/cmap
 	go get github.com/pterm/pterm
 	go get github.com/stretchr/testify/assert
 	go get github.com/pterm/pterm/putils
