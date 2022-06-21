@@ -3,14 +3,16 @@ package tconsole
 import (
   "github.com/lrita/cmap"
   "github.com/pterm/pterm"
+  "github.com/gammazero/deque"
 )
 
 type TConsole struct {
   cfg        *cmap.Cmap
   lastMsg     string
+  lastDbg     string
   offset      int
-  hadAngle    bool
   spinner     *pterm.SpinnerPrinter
+  fq          *deque.Deque[interface{}]
 }
 
 func New(cfg *cmap.Cmap) (*TConsole, error) {
@@ -25,13 +27,14 @@ func New(cfg *cmap.Cmap) (*TConsole, error) {
   res.Enable()
   res.EnableColor()
   res.lastMsg  = ""
+  res.lastDbg  = ""
   if res.Get("console.Msg", true).(bool) {
     res.spinner, err = pterm.DefaultSpinner.WithRemoveWhenDone(true).Start()
   }
   if err != nil {
     return nil, err
   }
-  res.hadAngle = false
+  res.fq = deque.New[interface{}]()
   return res, nil
 }
 
@@ -60,16 +63,14 @@ func (c *TConsole) DisableColor() {
 
 func (c *TConsole) ResetOffset() {
   c.offset = 0
-  c.hadAngle = false
+  c.fq.Clear()
 }
 
 func (c *TConsole) Inc() {
   c.offset += 1
-  c.hadAngle = false
 }
 
 func (c *TConsole) Dec() {
-  c.hadAngle = false
   if c.offset == 0 {
     return
   }

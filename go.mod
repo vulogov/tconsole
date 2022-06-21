@@ -5,6 +5,7 @@ go 1.18
 require (
 	github.com/atomicgo/cursor v0.0.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/gammazero/deque v0.2.0 // indirect
 	github.com/gookit/color v1.5.0 // indirect
 	github.com/lrita/cmap v0.0.0-20220613164007-7fbf4a5bd437 // indirect
 	github.com/mattn/go-runewidth v0.0.13 // indirect
