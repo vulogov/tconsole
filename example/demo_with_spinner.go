@@ -5,14 +5,15 @@ import "tconsole"
 
 func main() {
   c, _ := tconsole.New(nil)
-  c.Println("Hello!")
+  c.Print("Hello!")
   c.Message("Doing #1")
   time.Sleep(time.Second)
   c.Inc()
-  c.Println("Hello again")
+  c.Warning("Warning message")
+  c.Print("Hello again")
   c.Message("Doing #2")
   time.Sleep(time.Second)
-  c.Inc()
+  c.Debug("Properly indented debug message")
   c.Stop()
   time.Sleep(time.Second)
 }

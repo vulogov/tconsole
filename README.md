@@ -7,3 +7,10 @@ Every time, when you create a console application, you are potentially and quite
 Or let say, what is tconsole "is not". _tconsole_ module is not a "text User Interface" with text menu, windows and other elements of full screen tUI. This module rather help you to replace _fmt.Println()_ with something more meaningful.
 
 ![tconsole UI](./example/tconsole.png "tconsole")
+
+_tconsole_ provides you Print()-like interface that's permitting to print a prefixed messages on text console with indentation that assist with grouping of the output messages. Color-coded prefixes will help you to categorize different types of the messages.
+
+### And adding a spinner
+
+
+![tconsole spinner UI](./example/tconsole_spinner.gif "tconsole spinner")

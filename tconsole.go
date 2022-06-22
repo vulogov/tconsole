@@ -1,6 +1,7 @@
 package tconsole
 
 import (
+  "time"
   "github.com/lrita/cmap"
   "github.com/pterm/pterm"
   "github.com/gammazero/deque"
@@ -14,6 +15,22 @@ type TConsole struct {
   spinner     *pterm.SpinnerPrinter
   fq          *deque.Deque[interface{}]
   sq          *deque.Deque[interface{}]
+}
+
+var SpinnerStyle = pterm.Style{pterm.FgLightRed}
+var SpinnerTextStyle =  pterm.Style{pterm.FgDefault, pterm.BgDefault}
+
+var DefaultSpinner = pterm.SpinnerPrinter{
+	Sequence:            []string{"▀ ", " ▀", " ▄", "▄ "},
+	Style:               &SpinnerStyle,
+	Delay:               time.Millisecond * 200,
+	ShowTimer:           true,
+	TimerRoundingFactor: time.Second,
+	TimerStyle:          &pterm.ThemeDefault.TimerStyle,
+	MessageStyle:        &SpinnerTextStyle,
+	SuccessPrinter:      &pterm.Success,
+	FailPrinter:         &pterm.Error,
+	WarningPrinter:      &pterm.Warning,
 }
 
 func New(cfg *cmap.Cmap) (*TConsole, error) {
@@ -30,7 +47,7 @@ func New(cfg *cmap.Cmap) (*TConsole, error) {
   res.lastMsg  = ""
   res.lastDbg  = ""
   if res.Get("console.Msg", true).(bool) {
-    res.spinner, err = pterm.DefaultSpinner.WithRemoveWhenDone(true).Start()
+    res.spinner, err = DefaultSpinner.WithRemoveWhenDone(true).Start()
   }
   if err != nil {
     return nil, err
@@ -84,7 +101,7 @@ func (c *TConsole) Stop(msg ...interface{}) {
     return
   }
   if len(c.lastMsg) > 0 {
-    c.Println(c.lastMsg)
+    c.Print(c.lastMsg)
   }
   c.spinner.Stop()
 }
