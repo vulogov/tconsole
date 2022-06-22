@@ -1,4 +1,4 @@
-module tconsole
+module github.com/vulogov/tconsole
 
 go 1.18
 
