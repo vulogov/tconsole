@@ -1,3 +1,5 @@
+[![Go](https://github.com/vulogov/tconsole/actions/workflows/go.yml/badge.svg)](https://github.com/vulogov/tconsole/actions/workflows/go.yml)
+
 # Console prettification project
 
 Every time, when you create a console application, you are potentially and quite often do interact with another human being who is a user of that tool. To have a meaningful, convenient and intuitive console user interface is still a responsibility of the instrument developer, and to use _fmt.Println()_ as a primary tool for text UI creation is not a perfect choice. While some tools do not require any elaborate UI, as the output of that tool is in fact an input of other tool, sometimes, console output of some program do actually intended to be used by a human, and _tconsole_ golang module will help you to make a better user experience.
