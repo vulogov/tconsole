@@ -24,6 +24,10 @@ go get github.com/vulogov/tconsole
 
 Full source code is available at [https://github.com/vulogov/tconsole](https://github.com/vulogov/tconsole)
 
+### Initializing console
+
+You can pass cmap as a parameter to a _.New()_, or pass nil and _tconsole_ will initialize configurator internally.
+
 ### Display color-prefixed messages
 
 Color-prefixed messages will help you to send an Info/Error/Warning/Debug messages on text console. _tconsole_ is not a log replacement, it doesn't send anything except prefix and a message.
