@@ -13,6 +13,7 @@ type TConsole struct {
   offset      int
   spinner     *pterm.SpinnerPrinter
   fq          *deque.Deque[interface{}]
+  sq          *deque.Deque[interface{}]
 }
 
 func New(cfg *cmap.Cmap) (*TConsole, error) {
@@ -35,6 +36,7 @@ func New(cfg *cmap.Cmap) (*TConsole, error) {
     return nil, err
   }
   res.fq = deque.New[interface{}]()
+  res.sq = deque.New[interface{}]()
   return res, nil
 }
 

@@ -60,15 +60,45 @@ func (c *TConsole) F(msg string, args ...interface{}) {
   }
 }
 
+func (c *TConsole) Section(sname string, msg ...interface{}) {
+  if c.isOutput("Debug") {
+    c.lastDbg  = ""
+    c.Inc()
+    c.sq.PushBack(sname)
+    fmsg := make([]interface{}, 0)
+    fmsg = append(fmsg, pterm.DefaultBasicText.WithStyle(&FunctionPrefixStyle).Sprint(padText(fmt.Sprintf("⊂(%v)", sname), PSIZE)))
+    fmsg = append(fmsg, msg...)
+    c.Println(fmsg...)
+  }
+}
+
+func (c *TConsole) SectionEnd(msg ...interface{}) {
+  if c.isOutput("Debug") && c.sq.Len() > 0 {
+    c.lastDbg  = ""
+    sname := c.sq.PopBack().(string)
+    fmsg := make([]interface{}, 0)
+    fmsg = append(fmsg, pterm.DefaultBasicText.WithStyle(&FunctionPrefixStyle).Sprint(padText(fmt.Sprintf("⊄(%v)", sname), PSIZE)))
+    fmsg = append(fmsg, msg...)
+    c.Println(fmsg...)
+    c.Dec()
+  }
+}
+
 func (c *TConsole) Debug(msg ...interface{}) {
+  var opfx string
+
   if c.isOutput("Debug") {
     fmsg := make([]interface{}, 0)
-    pfx := padText("DEBUG", PSIZE)
-    opfx := pfx
-    if c.lastDbg == pfx {
-      opfx = padText(" ", PSIZE)
+    if c.sq.Len() == 0 {
+      pfx := padText("DEBUG", PSIZE)
+      opfx = pfx
+      if c.lastDbg == pfx {
+        opfx = padText(" ", PSIZE)
+      } else {
+        c.lastDbg = pfx
+      }
     } else {
-      c.lastDbg = pfx
+      opfx = padText(" ", PSIZE)
     }
     fmsg = append(fmsg, pterm.DefaultBasicText.WithStyle(&DebugPrefixStyle).Sprint(opfx))
     fmsg = append(fmsg, msg...)
